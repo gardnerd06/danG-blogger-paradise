@@ -2,9 +2,10 @@
   "name": "dang-blogger-paradise",
   "version": "1.0.0",
   "description": "The goal of this project is to to build a CMS-style blog site similar to a Wordpress site, where developers can publish their blog posts and comment on other developers’ posts as well.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
     "seed": "node seeds/seed.js"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
     "mysql2": "^2.2.5",
+    "nodemon": "^2.0.21",
     "sequelize": "^6.3.5"
   }
 }
