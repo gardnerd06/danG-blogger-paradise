@@ -1,7 +1,8 @@
 {{#each posts as |post| }}
 <div class="card">
   <div class="card-header">
-    {{post.name}}'s Blog Post
+    {{post.title}} Post
+    <a class="nav-link" href="/{{id}}">View</a>
   </div>
   <div class="card-body">
     <blockquote class="blockquote mb-0">

@@ -11,7 +11,7 @@ Blog.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        name: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -21,6 +21,7 @@ Blog.init(
         },
         user_id: {
             type: DataTypes.INTEGER,
+
             references: {
                 model: 'user',
                 key: 'id',
