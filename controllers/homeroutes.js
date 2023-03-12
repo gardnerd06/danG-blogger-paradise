@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Blog } = require('../models');
+const { User, Blog, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -48,13 +48,32 @@ router.get('/signup', (req, res) => {
 
     res.render('signup');
 });
+router.get('/dashboard', async (req, res) => {
+    try {
+        // Find the logged in user based on the session ID
+        const postData = await Blog.findAll({
+            // attributes: { exclude: ['password'] },
+            // include: [{ model: User }, { model: Blog }]
+            include: [{ model: User }]
+        });
+
+        // const userPosts = postData.get({ plain: true });
+
+        // res.render('dashboard', {
+        //     ...userPosts,
+        //     logged_in: true
+        // });
+        res.send(postData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 
 
 router.get('/:id', async (req, res) => {
     try {
         const dbBlogData = await Blog.findByPk(req.params.id, { include: User });
-
         const blogPosts = dbBlogData.get({ plain: true });
         res.render('blogDetails', { blogPosts });
         // res.send(dbBlogData);
@@ -64,6 +83,9 @@ router.get('/:id', async (req, res) => {
     }
 
 });
+
+
+
 
 module.exports = router;
 
