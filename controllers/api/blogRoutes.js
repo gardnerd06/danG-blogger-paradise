@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Blog } = require('c:/Users/Gardn/bootcamp/danG-blogger-paradise/models');
+const { User, Blog } = require('../../models');
 // const withAuth = require('../utils/auth');
 
 
