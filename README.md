@@ -7,6 +7,7 @@
 The goal of this project is to to build a CMS-style blog site similar to a Wordpress site, where developers can publish their blog posts and comment on other developers’ posts as well.
 
 [GitHub]  <https://github.com/gardnerd06/danG-blogger-paradise>
+[heroku] <https://sleepy-wave-32441.herokuapp.com/>
 
 ## Table of Content
 
@@ -19,6 +20,8 @@ The goal of this project is to to build a CMS-style blog site similar to a Wordp
 Daniel Gardner
 
 ## Screenshots
+![Screenshot (35)](https://user-images.githubusercontent.com/115792714/224888949-d29cc80a-38f8-4b2c-965b-de4f67ed7007.png)
+![Screenshot (34)](https://user-images.githubusercontent.com/115792714/224888957-558eefb5-ab6b-4536-8281-2e959b308695.png)
 
 ## How to Contribute
 
