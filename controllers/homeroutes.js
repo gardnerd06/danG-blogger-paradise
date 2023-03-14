@@ -80,6 +80,7 @@ router.get('/:id', async (req, res) => {
         // res.send(dbBlogData);
     } catch (err) {
         console.log(err);
+
         res.status(500).json(err);
     }
 
