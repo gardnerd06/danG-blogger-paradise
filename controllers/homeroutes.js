@@ -5,6 +5,9 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
     try {
         const blogData = await Blog.findAll({
+            attributes: [
+
+            ],
             include: [
                 {
                     model: User,
@@ -52,10 +55,10 @@ router.get('/signup', (req, res) => {
 router.get('/dashboard', async (req, res) => {
     try {
         // Find the logged in user based on the session ID
-        const postData = await Blog.findAll({
+        const postData = await User.findAll({
             // attributes: { exclude: ['password'] },
-            // include: [{ model: User }, { model: Blog }]
-            include: [{ model: User }]
+            include: [{ model: Blog }, { model: Comment }]
+            // include: [{ model: User }]
         });
 
         // const userPosts = postData.get({ plain: true });
