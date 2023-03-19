@@ -4,17 +4,17 @@ const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
     try {
-        const blogData = await Blog.findAll({
+        const blogData = await User.findAll({
 
-            include: [{ model: User, }],
+            include: [{ model: Blog }, { model: Comment }],
         });
 
         const posts = blogData.map((blog) => blog.get({ plain: true }));
         res.render('homepage', {
             posts,
+            user_id: req.session.user_id,
             logged_in: req.session.logged_in,
         });
-        // res.send(posts);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -38,29 +38,42 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 router.get('/signup', (req, res) => {
-    if (req.session.logged_in) {
+    if (!req.session.logged_in) {
+        res.redirect('/');
+        return;
+    }
+    res.render('signup');
+});
+
+router.get('/profile', (req, res) => {
+    if (!req.session.logged_in) {
         res.redirect('/');
         return;
     }
 
-    res.render('signup');
+    res.render('profile', {
+        user_id: req.session.user_id,
+        logged_in: req.session.logged_in,
+    });
 });
-router.get('/dashboard', async (req, res) => {
+// 
+router.get('/dashboard/:id', withAuth, async (req, res) => {
+    if (!req.session.logged_in) {
+        res.redirect('/');
+        return;
+    }
     try {
-        // Find the logged in user based on the session ID
-        const postData = await User.findAll({
-            // attributes: { exclude: ['password'] },
+        const postData = await User.findByPk(req.params.id, {
+            attributes: { exclude: ['password'] },
             include: [{ model: Blog }, { model: Comment }]
-            // include: [{ model: User }]
         });
 
-        // const userPosts = postData.get({ plain: true });
+        const userPosts = postData.get({ plain: true });
 
-        // res.render('dashboard', {
-        //     ...userPosts,
-        //     logged_in: true
-        // });
-        res.send(postData);
+        res.render('dashboard', {
+            userPosts,
+            logged_in: req.session.logged_in
+        });
     } catch (err) {
         res.status(500).json(err);
     }
@@ -72,7 +85,7 @@ router.get('/:id', async (req, res) => {
     try {
         const dbBlogData = await Blog.findByPk(req.params.id, { include: User });
         const blogPosts = dbBlogData.get({ plain: true });
-        res.render('blogDetails', { blogPosts });
+        res.render('blogDetails', { blogPosts, logged_in: req.session.logged_in, });
         // res.send(dbBlogData);
     } catch (err) {
         console.log(err);
